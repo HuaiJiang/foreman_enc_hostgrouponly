@@ -12,13 +12,13 @@ The gem name is "foreman_enc_hostgrouponly".
 
 ## Compatibility
 
-
 | Foreman Version | Plugin Version |
 | --------------- | --------------:|
 | >= 1.5          | 1.0.0          |
 
 ## Usage
 There is a new setting under `Settings -> General`
+
 | Setting | Description |
 | ------- | ----------- |
 | `enc_hostgrouponly` | Setting this to `true` will let ENC return host group parameters only  Default: `false` |
