@@ -1,13 +1,8 @@
-require 'deface'
 require 'foreman_enc_hostgrouponly_patch'
 
 module ForemanEncHostgrouponly
   class Engine < ::Rails::Engine
 
-    #config.autoload_paths += Dir["#{config.root}/app/controllers/concerns"]
-    #config.autoload_paths += Dir["#{config.root}/app/helpers/concerns"]
-    #config.autoload_paths += Dir["#{config.root}/app/models/concerns"]
-    #config.autoload_paths += Dir["#{config.root}/app/overrides"]
 
     # Load this before the Foreman config initizializers, so that the Setting.descendants
     # list includes the plugin STI setting class
@@ -25,8 +20,6 @@ module ForemanEncHostgrouponly
     #Include concerns in this config.to_prepare block
     config.to_prepare do
       begin
-   #     Host::Managed.send(:include, ForemanEncHostgrouponly::HostExtensions)
-   #     HostsHelper.send(:include, ForemanEncHostgrouponly::HostsHelperExtensions)
          Classification::ClassParam.send(:include, ForemanEncHostgrouponlyPatch)
       rescue => e
         puts e.backtrace
