@@ -1,19 +1,28 @@
 # ForemanEncHostgrouponly
 
-*Introdction here*
+This rails engine/plugin to Foreman leverages the existing ENC functionality meanwhile only return data that being overriden in hostgroup. This would allow user sepereate ENC/classes and data management so data could be managed in an auditable manner.
+
 
 ## Installation
 
 See [How_to_Install_a_Plugin](http://projects.theforeman.org/projects/foreman/wiki/How_to_Install_a_Plugin)
 for how to install Foreman plugins
 
+The gem name is "foreman_enc_hostgrouponly". 
+
+## Compatibility
+
+| Foreman Version | Plugin Version |
+| --------------- | --------------:|
+| >= 1.5          | 1.0.0          |
+
 ## Usage
+There is a new setting under `Settings -> General`
 
-*Usage here*
+| Setting | Description |
+| ------- | ----------- |
+| `enc_hostgrouponly` | Setting this to `true` will let ENC return host group parameters only  Default: `false` |
 
-## TODO
-
-*Todo list here*
 
 ## Contributing
 
@@ -21,7 +30,7 @@ Fork and send a Pull Request. Thanks!
 
 ## Copyright
 
-Copyright (c) *year* *your name*
+Copyright (c) *2014* *Huai Jiang*
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
