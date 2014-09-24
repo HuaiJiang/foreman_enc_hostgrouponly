@@ -16,32 +16,29 @@ module ForemanEncHostgrouponlyPatch
         Rails.logger.debug "ForemanEncHostgrouponlyPatch: return host group parameters only"
         h = {}
         begin
-          hostgroup_matches.each do |hostgroup_match|
-            LookupValue.where(:match => hostgroup_match).where(:lookup_key_id => class_parameters.map(&:id)).each do |value|
-                key = class_parameters.detect{|k| k.id == value.lookup_key_id }
-                Rails.logger.debug "ForemanEncHostgrouponlyPatch: detect host group parameters (#{key.to_s})"
-                klass_id = key.environment_classes.first.puppetclass_id
-                h[klass_id] ||= []
-                h[klass_id] << key
-              end
-          end
-          h
-        rescue => e
-          Rails.logger.error "ForemanEncHostgrouponlyPatch: return host group parameters only (#{e.to_s})"
-        end
-      end
-
-      def hostgroup_match
-        hostgroup_matches = []
+         hostgroup_matches = []
           possible_value_orders.each do |rule|
             match = Array.wrap(rule).map do |element|
-                "#{element}#{LookupKey::EQ_DELM}#{attr_to_value(element)}"
+              "#{element}#{LookupKey::EQ_DELM}#{attr_to_value(element)}"
             end if Array.wrap(rule).include?("hostgroup")
             if match
-                hostgroup_matches << match.join(LookupKey::KEY_DELM)
+              hostgroup_matches << match.join(LookupKey::KEY_DELM)
             end
           end
-        hostgroup_matches
+
+          hostgroup_matches.each do |hostgroup_match|
+            LookupValue.where(:match => hostgroup_match).where(:lookup_key_id => class_parameters.map(&:id)).each do |value|
+              key = class_parameters.detect{|k| k.id == value.lookup_key_id }
+              Rails.logger.debug "ForemanEncHostgrouponlyPatch: detect host group parameters (#{key.to_s})"
+              klass_id = key.environment_classes.first.puppetclass_id
+              h[klass_id] ||= []
+              h[klass_id] << key
+            end
+          end
+        h
+        rescue => e
+          Rails.logger.error "ForemanEncHostgrouponly: skipping engine hook (#{e.to_s})"
+        end
       end
 
   end
